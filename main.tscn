@@ -180,3 +180,4 @@ stream = ExtResource("15_2cqfq")
 [connection signal="timeout" from="BallTimer" to="." method="_on_ball_timer_timeout"]
 [connection signal="start_game" from="Menu" to="." method="start_new_game"]
 [connection signal="open_menu" from="GameOver" to="." method="show_main_menu"]
+[connection signal="restart_game" from="GameOver" to="." method="reset_game"]

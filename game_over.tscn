@@ -35,14 +35,29 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -52.0
+offset_left = -120.0
 offset_top = -152.0
-offset_right = 52.0
+offset_right = -16.0
 offset_bottom = -120.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("1_y26ei")
 text = "Menu"
+
+[node name="RestartButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -152.0
+offset_right = 136.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_y26ei")
+text = "Restart"
 
 [node name="WinnerMessage" type="Label" parent="."]
 anchors_preset = 8
@@ -120,3 +135,4 @@ vertical_alignment = 1
 stream = ExtResource("3_ccer4")
 
 [connection signal="pressed" from="MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]
