@@ -13,6 +13,7 @@ func _process(delta: float) -> void:
 	pass
 
 
+
 func _on_start_button_pressed() -> void:
 	var selectedDifficulty = $OptionButton.get_selected_id()
 	var difficulty = $OptionButton.get_item_text(selectedDifficulty)
@@ -20,4 +21,19 @@ func _on_start_button_pressed() -> void:
 	var selectedMaxScore = $ScoreButton.get_selected_id()
 	var maxScore = $ScoreButton.get_item_text(selectedMaxScore)
 	
+	$AudioStreamPlayer2D.play()
+	
 	start_game.emit(difficulty, int(maxScore))
+
+
+func _on_score_button_pressed() -> void:
+	$AudioStreamPlayer2D.play()
+
+func _on_score_button_item_selected(index: int) -> void:
+	$AudioStreamPlayer2D.play()
+
+func _on_option_button_pressed() -> void:
+	$AudioStreamPlayer2D.play()
+
+func _on_option_button_item_selected(index: int) -> void:
+	$AudioStreamPlayer2D.play()
