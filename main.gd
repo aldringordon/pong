@@ -18,11 +18,13 @@ func _on_ball_timer_timeout() -> void:
 
 
 func _on_score_left_body_entered(body: Node2D) -> void:
+	$ExplodeSound.play()
 	score[1] += 1
 	$Hud/CPUScore.text = str(score[1])
 	$BallTimer.start()
 
 func _on_score_right_body_entered(body: Node2D) -> void:
+	$CoinSound.play()
 	score[0] += 1
 	$Hud/PlayerScore.text = str(score[0])
 	$BallTimer.start()

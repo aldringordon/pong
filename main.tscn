@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c74end7wytsio"]
+[gd_scene load_steps=16 format=3 uid="uid://c74end7wytsio"]
 
 [ext_resource type="Texture2D" uid="uid://pucgh0qbmij" path="res://assets/Bg.png" id="1_ig7tw"]
 [ext_resource type="FontFile" uid="uid://cwd1tkm36irny" path="res://assets/pixel_font.ttf" id="2_0xm2m"]
@@ -6,6 +6,9 @@
 [ext_resource type="Script" uid="uid://bwbv25p2ltjca" path="res://player.gd" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://digqtb5npsn1m" path="res://cpu.gd" id="4_7mycd"]
 [ext_resource type="Script" uid="uid://rvgib54ojpun" path="res://ball.gd" id="4_lquwl"]
+[ext_resource type="AudioStream" uid="uid://c2drw4to6kosp" path="res://assets/audio/beep.mp3" id="7_272bh"]
+[ext_resource type="AudioStream" uid="uid://cjtlbww4gpes2" path="res://assets/audio/coin.mp3" id="8_5vw27"]
+[ext_resource type="AudioStream" uid="uid://b4875dxdhiayv" path="res://assets/audio/explode.mp3" id="9_kek77"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
 size = Vector2(20, 120)
@@ -138,6 +141,16 @@ vertical_alignment = 1
 [node name="BallTimer" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="BeepSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_272bh")
+
+[node name="CoinSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_5vw27")
+
+[node name="ExplodeSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_kek77")
+volume_db = -2.506
 
 [connection signal="body_entered" from="ScoreLeft" to="." method="_on_score_left_body_entered"]
 [connection signal="body_entered" from="ScoreRight" to="." method="_on_score_right_body_entered"]

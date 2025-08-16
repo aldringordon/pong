@@ -23,7 +23,7 @@ func _physics_process(delta: float) -> void:
 	var collider
 	if collision:
 		collider = collision.get_collider()
-		
+		$"../BeepSound".play()
 		# if ball hits paddle
 		if collider == $"../Player":
 			speed += ACCEL # increase speed
