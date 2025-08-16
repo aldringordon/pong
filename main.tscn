@@ -1,9 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://c74end7wytsio"]
+[gd_scene load_steps=25 format=3 uid="uid://c74end7wytsio"]
 
 [ext_resource type="Texture2D" uid="uid://pucgh0qbmij" path="res://assets/Bg.png" id="1_ig7tw"]
 [ext_resource type="FontFile" uid="uid://cwd1tkm36irny" path="res://assets/pixel_font.ttf" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://cyf21hnk47j1j" path="res://main.gd" id="2_h2yge"]
 [ext_resource type="Script" uid="uid://4sy7biseik5c" path="res://player.gd" id="3_1bvp3"]
+[ext_resource type="Shader" uid="uid://c6f85k4d1fwty" path="res://main.gdshader" id="3_2cqfq"]
+[ext_resource type="Script" uid="uid://5b88h4k4ywyr" path="res://shader_layer.gd" id="3_yaehf"]
 [ext_resource type="Script" uid="uid://digqtb5npsn1m" path="res://cpu.gd" id="4_7mycd"]
 [ext_resource type="Script" uid="uid://rvgib54ojpun" path="res://ball.gd" id="4_lquwl"]
 [ext_resource type="AudioStream" uid="uid://c2drw4to6kosp" path="res://assets/audio/beep.mp3" id="7_272bh"]
@@ -15,6 +17,16 @@
 [ext_resource type="AudioStream" uid="uid://dgyai3mkuk6kh" path="res://assets/audio/AmbientMusic.mp3" id="13_ycdy4"]
 [ext_resource type="AudioStream" uid="uid://dktstwe8tm3fx" path="res://assets/audio/Victory.mp3" id="14_vivmo"]
 [ext_resource type="AudioStream" uid="uid://jvgv0e6wt3oy" path="res://assets/audio/YouLose.mp3" id="15_2cqfq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2cqfq"]
+shader = ExtResource("3_2cqfq")
+shader_parameter/resolution = Vector2(320, 180)
+shader_parameter/scan_line_amount = 0.5
+shader_parameter/warp_amount = 0.05
+shader_parameter/vignette_amount = 0.5
+shader_parameter/vignette_intensity = 0.3
+shader_parameter/grille_amount = 0.05
+shader_parameter/brightness_boost = 1.2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
 size = Vector2(20, 120)
@@ -39,6 +51,15 @@ texture_filter = 1
 texture = ExtResource("1_ig7tw")
 centered = false
 script = ExtResource("2_h2yge")
+
+[node name="ShaderLayer" type="CanvasLayer" parent="."]
+script = ExtResource("3_yaehf")
+
+[node name="ColorRect" type="ColorRect" parent="ShaderLayer"]
+material = SubResource("ShaderMaterial_2cqfq")
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
 
 [node name="Player" type="StaticBody2D" parent="."]
 position = Vector2(50, 324)
