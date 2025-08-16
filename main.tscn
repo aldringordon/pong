@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c74end7wytsio"]
+[gd_scene load_steps=22 format=3 uid="uid://c74end7wytsio"]
 
 [ext_resource type="Texture2D" uid="uid://pucgh0qbmij" path="res://assets/Bg.png" id="1_ig7tw"]
 [ext_resource type="FontFile" uid="uid://cwd1tkm36irny" path="res://assets/pixel_font.ttf" id="2_0xm2m"]
@@ -11,6 +11,10 @@
 [ext_resource type="AudioStream" uid="uid://b4875dxdhiayv" path="res://assets/audio/explode.mp3" id="9_kek77"]
 [ext_resource type="PackedScene" uid="uid://c2342xfrnehvd" path="res://menu.tscn" id="10_4c57u"]
 [ext_resource type="PackedScene" uid="uid://brt137ffwnxgp" path="res://game_over.tscn" id="11_efxa6"]
+[ext_resource type="AudioStream" uid="uid://bksq22dhhs5nv" path="res://assets/audio/PixelFantasia.mp3" id="12_dg77c"]
+[ext_resource type="AudioStream" uid="uid://dgyai3mkuk6kh" path="res://assets/audio/AmbientMusic.mp3" id="13_ycdy4"]
+[ext_resource type="AudioStream" uid="uid://dktstwe8tm3fx" path="res://assets/audio/Victory.mp3" id="14_vivmo"]
+[ext_resource type="AudioStream" uid="uid://jvgv0e6wt3oy" path="res://assets/audio/YouLose.mp3" id="15_2cqfq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
 size = Vector2(20, 120)
@@ -158,6 +162,18 @@ visible = false
 
 [node name="GameOver" parent="." instance=ExtResource("11_efxa6")]
 visible = false
+
+[node name="PixelFantasiaSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_dg77c")
+
+[node name="AmbientSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_ycdy4")
+
+[node name="VictorySound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_vivmo")
+
+[node name="YouLoseSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_2cqfq")
 
 [connection signal="body_entered" from="ScoreLeft" to="." method="_on_score_left_body_entered"]
 [connection signal="body_entered" from="ScoreRight" to="." method="_on_score_right_body_entered"]

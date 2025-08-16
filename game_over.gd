@@ -12,8 +12,9 @@ func _process(delta: float) -> void:
 	pass
 
 
-func show_game_over_screen(message: String):
+func show_game_over_screen(message: String, score: Array):
 	$WinnerMessage.text = message
+	$ScoreMessage.text = str(score[0]) + " - " + str(score[1])
 	show()
 
 

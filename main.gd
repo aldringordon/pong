@@ -16,6 +16,7 @@ func show_main_menu():
 	$Hud.hide()
 	$GameOver.hide()
 	$Menu.show()
+	$PixelFantasiaSound.play()
 
 func start_new_game(difficulty: String, maxScore: int):
 	set_paddle_speed(difficulty)
@@ -28,6 +29,8 @@ func start_new_game(difficulty: String, maxScore: int):
 	$Menu.hide()
 	$Hud.show()
 	$BallTimer.start()
+	$PixelFantasiaSound.stop()
+	$AmbientSound.play()
 
 func set_paddle_speed(difficulty: String):
 	if difficulty == "Easy":
@@ -44,10 +47,13 @@ func set_paddle_speed(difficulty: String):
 		MAX_SCORE = 8
 
 func end_game():
+	$AmbientSound.stop()
 	if score[0] == MAX_SCORE:
-		$GameOver.show_game_over_screen("You Won")
+		$GameOver.show_game_over_screen("You Won", score)
+		$VictorySound.play()
 	else:
-		$GameOver.show_game_over_screen("You Lost")
+		$GameOver.show_game_over_screen("You Lost", score)
+		$YouLoseSound.play()
 
 # Called when somebody scores
 # When max score reach end game and open menu
