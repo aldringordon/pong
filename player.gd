@@ -5,20 +5,29 @@ var p_height : int
 var top_position_limit : int
 var bottom_position_limit : int
 
+var target_y : float   # where the paddle should move to
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	win_height = get_viewport_rect().size.y
 	p_height = $ColorRect.get_size().y
 	top_position_limit = p_height / 2
 	bottom_position_limit = win_height - p_height / 2
-
+	
+	# start at current position
+	target_y = position.y
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	# keyboard movement overrides
 	if Input.is_action_pressed("ui_up"):
-		position.y -= get_parent().PADDLE_SPEED * delta
+		target_y = max(top_position_limit, position.y - get_parent().PADDLE_SPEED * delta)
 	elif Input.is_action_pressed("ui_down"):
-		position.y += get_parent().PADDLE_SPEED * delta
+		target_y = min(bottom_position_limit, position.y + get_parent().PADDLE_SPEED * delta)
 
-	# limit paddle movement to window
-	position.y = clamp(position.y, top_position_limit, bottom_position_limit)
+	# mouse click sets target_y
+	if Input.is_action_just_pressed("click"):   # bind "click" to left mouse in Input Map
+		target_y = get_viewport().get_mouse_position().y
+
+	# smoothly move toward target_y
+	position.y = move_toward(position.y, clamp(target_y, top_position_limit, bottom_position_limit), get_parent().PADDLE_SPEED * delta)
