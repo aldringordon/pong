@@ -24,6 +24,8 @@ func reset_ball():
 	position.x = win_size.x / 2
 	position.y = win_size.y / 2
 
+
+
 func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(dir * speed * delta)
 	

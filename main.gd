@@ -17,6 +17,7 @@ func _process(delta: float) -> void:
 func show_main_menu():
 	$Hud.hide()
 	$GameOver.hide()
+	$Pause.hide()
 	$Menu.show()
 	$PixelFantasiaSound.play()
 
@@ -29,13 +30,17 @@ func start_new_game(difficulty: String, maxScore: int):
 	$Hud/PlayerScore.text = "0"
 	$Player.position = Vector2(50, 324)
 	$CPU.position = Vector2(1082, 324)
+	
 	$Menu.hide()
 	$GameOver.hide()
+	$Pause.hide()
 	$Hud.show()
+	
 	$BallTimer.start()
 	$PixelFantasiaSound.stop()
 	$AmbientSound.play()
 	$Player.start_game()
+	get_tree().paused = false
 
 func reset_game():
 	start_new_game(DIFFICULTY, MAX_SCORE)
@@ -65,7 +70,6 @@ func end_game():
 # Called when somebody scores
 # When max score reach end game and open menu
 func scored():
-	
 	$Ball.reset_ball()
 	$Ball.stop_ball()	
 	if score[0] >= MAX_SCORE or score[1] >= MAX_SCORE:
@@ -88,3 +92,24 @@ func _on_score_right_body_entered(body: Node2D) -> void:
 	score[0] += 1
 	$Hud/PlayerScore.text = str(score[0])
 	scored()
+
+func _on_pause_button_pressed() -> void:
+	$ClickSound.play()
+	get_tree().paused = true
+	$Pause.show()
+
+func pause_show_menu():
+	get_tree().paused = false
+	$Ball.reset_ball()
+	$Ball.stop_ball()
+	$AmbientSound.stop()
+	$Player.stop_game()
+	show_main_menu()
+
+func pause_reset_game():
+	get_tree().paused = false
+	$Ball.reset_ball()
+	$Ball.stop_ball()
+	$AmbientSound.stop()
+	$Player.stop_game()
+	start_new_game(DIFFICULTY, MAX_SCORE)

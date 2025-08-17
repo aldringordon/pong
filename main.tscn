@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c74end7wytsio"]
+[gd_scene load_steps=27 format=3 uid="uid://c74end7wytsio"]
 
 [ext_resource type="Texture2D" uid="uid://pucgh0qbmij" path="res://assets/Bg.png" id="1_ig7tw"]
 [ext_resource type="FontFile" uid="uid://cwd1tkm36irny" path="res://assets/pixel_font.ttf" id="2_0xm2m"]
@@ -12,11 +12,13 @@
 [ext_resource type="AudioStream" uid="uid://cjtlbww4gpes2" path="res://assets/audio/coin.mp3" id="8_5vw27"]
 [ext_resource type="AudioStream" uid="uid://b4875dxdhiayv" path="res://assets/audio/explode.mp3" id="9_kek77"]
 [ext_resource type="PackedScene" uid="uid://c2342xfrnehvd" path="res://menu.tscn" id="10_4c57u"]
+[ext_resource type="PackedScene" uid="uid://by5dskr0up5gv" path="res://pause.tscn" id="11_074og"]
 [ext_resource type="PackedScene" uid="uid://brt137ffwnxgp" path="res://game_over.tscn" id="11_efxa6"]
 [ext_resource type="AudioStream" uid="uid://bksq22dhhs5nv" path="res://assets/audio/PixelFantasia.mp3" id="12_dg77c"]
 [ext_resource type="AudioStream" uid="uid://dgyai3mkuk6kh" path="res://assets/audio/AmbientMusic.mp3" id="13_ycdy4"]
 [ext_resource type="AudioStream" uid="uid://dktstwe8tm3fx" path="res://assets/audio/Victory.mp3" id="14_vivmo"]
 [ext_resource type="AudioStream" uid="uid://jvgv0e6wt3oy" path="res://assets/audio/YouLose.mp3" id="15_2cqfq"]
+[ext_resource type="AudioStream" uid="uid://bkk6pr84kkddb" path="res://assets/audio/MenuClick.wav" id="19_cegan"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2cqfq"]
 shader = ExtResource("3_2cqfq")
@@ -165,8 +167,26 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="PauseButton" type="Button" parent="Hud"]
+offset_left = 1008.0
+offset_top = 596.0
+offset_right = 1130.0
+offset_bottom = 636.0
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("2_0xm2m")
+text = "Pause"
+
 [node name="BallTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Menu" parent="." instance=ExtResource("10_4c57u")]
+visible = false
+
+[node name="GameOver" parent="." instance=ExtResource("11_efxa6")]
+visible = false
+
+[node name="Pause" parent="." instance=ExtResource("11_074og")]
+process_mode = 2
 
 [node name="BeepSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_272bh")
@@ -177,12 +197,6 @@ stream = ExtResource("8_5vw27")
 [node name="ExplodeSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_kek77")
 volume_db = -2.506
-
-[node name="Menu" parent="." instance=ExtResource("10_4c57u")]
-visible = false
-
-[node name="GameOver" parent="." instance=ExtResource("11_efxa6")]
-visible = false
 
 [node name="PixelFantasiaSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("12_dg77c")
@@ -197,9 +211,16 @@ stream = ExtResource("14_vivmo")
 [node name="YouLoseSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("15_2cqfq")
 
+[node name="ClickSound" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("19_cegan")
+
 [connection signal="body_entered" from="ScoreLeft" to="." method="_on_score_left_body_entered"]
 [connection signal="body_entered" from="ScoreRight" to="." method="_on_score_right_body_entered"]
+[connection signal="pressed" from="Hud/PauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="timeout" from="BallTimer" to="." method="_on_ball_timer_timeout"]
 [connection signal="start_game" from="Menu" to="." method="start_new_game"]
 [connection signal="open_menu" from="GameOver" to="." method="show_main_menu"]
 [connection signal="restart_game" from="GameOver" to="." method="reset_game"]
+[connection signal="pause_menu" from="Pause" to="." method="pause_show_menu"]
+[connection signal="pause_restart" from="Pause" to="." method="pause_reset_game"]
