@@ -35,6 +35,7 @@ func start_new_game(difficulty: String, maxScore: int):
 	$BallTimer.start()
 	$PixelFantasiaSound.stop()
 	$AmbientSound.play()
+	$Player.start_game()
 
 func reset_game():
 	start_new_game(DIFFICULTY, MAX_SCORE)
@@ -52,6 +53,7 @@ func set_paddle_speed(difficulty: String):
 
 func end_game():
 	$AmbientSound.stop()
+	$Player.stop_game()
 	await get_tree().create_timer(1.0).timeout
 	if score[0] == MAX_SCORE:
 		$GameOver.show_game_over_screen("You Won", score)
